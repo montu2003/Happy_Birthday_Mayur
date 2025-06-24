@@ -1,0 +1,775 @@
+/* Removing Tailwind directives since we're using vanilla CSS */
+
+/* Defined Variables */
+:root {
+  /* Theme: Day */
+  --gradient-day-start: #fecdd3; /* Lighter Pink */
+  --gradient-day-mid: #e9d5ff; /* Purple */
+  --gradient-day-end: #bfdbfe; /* Lighter Indigo/Blue */
+
+  /* Theme: Night */
+  --gradient-night-start: #0b132b; /* Very Dark Desaturated Blue */
+  --gradient-night-mid: #1c2541; /* Dark Blue */
+  --gradient-night-end: #3a506b; /* Medium Blue-Grey */
+  /* --gradient-night-hint:  #5bc0be; Optional subtle teal hint */
+
+  /* Base Text Colors */
+  --text-dark: #1f2937; /* gray-800ish */
+  --text-light: #f9fafb; /* gray-50 */
+  --text-dialog-desc: #6b7280; /* gray-500 */
+  --text-msg-box: #374151; /* gray-700 */
+  --text-btn-outline: #4b5563; /* gray-600 */
+
+  /* Component Backgrounds */
+  --bg-dialog: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.92); /* Slightly more opaque card */
+  --bg-message-box: rgba(255, 255, 255, 0.88);
+  --bg-music-btn: rgba(255, 255, 255, 0.2);
+  --bg-music-btn-hover: rgba(255, 255, 255, 0.3);
+
+  /* Buttons & Accents */
+  --color-accent: #ec4899; /* Pink */
+  --color-accent-hover: #db2777;
+  --color-accent-active: #be185d;
+  --color-border: #e5e7eb; /* gray-200 */
+  --color-highlight-special: #f472b6; /* Slightly lighter pink highlight */
+  --color-heart-effect: rgba(255, 105, 180, 0.9); /* Hearts */
+
+  /* Icons & Effects */
+  --color-moon: #f0f9ff; /* Very light blue/white for dark BG */
+  --color-moon-glow-inner: rgba(255, 255, 255, 1);
+  --color-moon-glow-outer: rgba(
+    219,
+    234,
+    254,
+    0.7
+  ); /* Lighter blue outer glow */
+  --color-pop-out-word: var(--color-accent-hover);
+
+  /* Transition Durations */
+  --duration-bg-change: 2s;
+  --duration-fade: 1s;
+  --duration-highlight: 0.5s;
+  --duration-pop: 1.5s; /* The speed of the word "Birthday" pop */
+}
+
+/* Custom Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-color: var(--color-border);
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #ffffff;
+  color: var(--text-dark);
+}
+
+/* Layout */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.max-w-md {
+  max-width: 28rem;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mt-6 {
+  margin-top: 0.5rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Background Gradient */
+.bg-gradient-to-br {
+  /* Uses DAY variables */
+  background: linear-gradient(
+    to bottom right,
+    var(--gradient-day-start),
+    var(--gradient-day-mid),
+    var(--gradient-day-end)
+  );
+  /* NO transition here */
+}
+
+.bg-gradient-night {
+  /* Uses NIGHT variables */
+  background: linear-gradient(
+    to bottom,
+    var(--gradient-night-start),
+    var(--gradient-night-mid),
+    var(--gradient-night-end)
+  );
+}
+
+.min-h-screen {
+  min-height: 100vh;
+  /* Apply the transition directly to the container */
+  transition: background var(--duration-bg-change) ease-in-out;
+}
+
+/* Typography */
+.text-gray-800 {
+  color: #2d3748;
+}
+
+.text-white {
+  color: var(--text-light);
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.drop-shadow-lg {
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
+    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+
+/* Messages */
+.message {
+  color: var(--text-dark);
+  font-family: Poppins;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity var(--duration-fade) ease;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.message.visible {
+  opacity: 1;
+}
+
+.message-large {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+}
+
+.message-small {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 300;
+}
+
+/* Dialog */
+.music-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 50;
+}
+
+.music-dialog-content {
+  max-width: 24rem;
+  width: 100%;
+  background-color: var(--bg-dialog);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.dialog-header {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.dialog-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.dialog-description {
+  font-size: 0.875rem;
+  color: var(--text-dialog-desc);
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: var(--color-accent);
+  color: var(--text-light);
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--color-accent-hover);
+  transform: scale(1.05);
+}
+
+.btn:active {
+  transform: scale(0.95);
+  background-color: #be185d;
+}
+
+.btn.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--text-btn-outline);
+}
+
+.btn.btn-outline:hover {
+  background-color: #f3f4f6;
+}
+
+/* Greeting Card */
+.bg-white\/90 {
+  background-color: var(--bg-card);
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-gray-200 {
+  border-color: var(--color-border);
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.transform {
+  transform: translateZ(0);
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
+}
+
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prose {
+  max-width: 65ch;
+  color: var(--text-dark);
+}
+
+.prose-lg {
+  font-size: 1.125rem;
+  line-height: 1.7777778;
+}
+
+/* Music Player */
+.music-toggle-btn {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 50;
+  background-color: var(--bg-music-btn);
+  backdrop-filter: blur(8px);
+  border-radius: 9999px;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  color: var(--text-dark);
+  transition: background-color 0.3s ease;
+}
+
+.music-toggle-btn:hover {
+  background-color: var(--bg-music-btn-hover);
+}
+
+/* Utility Classes */
+.hidden {
+  display: none;
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    /* transform: translateY(20px); */
+  }
+
+  100% {
+    opacity: 1;
+    /* transform: translateY(0); */
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    /* transform: translateY(0); */
+  }
+
+  100% {
+    opacity: 0;
+    /* transform: translateY(-20px); */
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.fade-in {
+  animation: fadeIn var(--duration-fade) ease forwards;
+}
+
+.fade-out {
+  animation: fadeOut var(--duration-fade) ease forwards;
+}
+
+/* **** ADD Utility Class **** */
+.opacity-0 {
+  opacity: 0;
+}
+
+/* **** Styles for Highlighting **** */
+.highlight-special {
+  display: inline-block;
+  /* Allows transform */
+  font-weight: normal;
+  /* Start normal */
+  color: inherit;
+  /* Start with parent color */
+  transition: color var(--duration-highlight) ease-in-out,
+    transform var(--duration-highlight) ease-in-out,
+    font-weight var(--duration-highlight) ease-in-out;
+}
+
+.highlight-special.highlighted {
+  color: var(--color-highlight-special);
+  /* Hot Pink - Visible against the gradient */
+  font-weight: bold;
+  /* Make it bolder */
+  transform: scale(1.1);
+  /* Slightly enlarge */
+}
+
+/* **** Styles for Final Scene Elements **** */
+#birthdayImage {
+  display: block;
+
+  /* **** REDUCED MAX HEIGHT SIGNIFICANTLY **** */
+  max-width: 80%;
+  /* Allow slightly wider if needed */
+  max-height: 50vh;
+  /* Reduced from 65vh */
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+#birthdayHat {
+  position: absolute;
+  width: 60px;
+  /* Adjusted base size slightly */
+  height: auto;
+  /* **** RE-ADJUST these % based on new image height **** */
+  top: 5%;
+  /* Example: Start adjusting from lower values */
+  left: 30%;
+  /* Example: Start adjusting from lower values */
+  transform: rotate(-20deg);
+  z-index: 10;
+  pointer-events: none;
+  transition: top 0.5s ease;
+}
+
+/* **** Styles for Detailed Message Box **** */
+.message-box {
+  background-color: var(--bg-message-box);
+  /* Semi-transparent white */
+  border: 1px solid var(--color-border);
+  /* border-gray-200 */
+  border-radius: 0.75rem;
+  /* rounded-xl */
+  padding: 1rem;
+  /* p-4 equivalent */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* shadow-md */
+  max-width: 90%;
+  /* Responsive width */
+  text-align: center;
+  /* Center the text inside */
+  font-size: 0.95rem;
+  /* Slightly smaller font */
+  line-height: 1.5;
+  color: var(--text-msg-box);
+  /* gray-700 */
+  transition: opacity 0.5s ease-in-out;
+  /* For smooth appearance */
+}
+
+/* **** ADD STYLES FOR BALLOONS **** */
+.balloon {
+  position: fixed;
+  /* Position relative to viewport */
+  bottom: -100px;
+  /* Start below the screen */
+  width: 50px;
+  height: 65px;
+  /* Slightly taller than wide */
+  background-color: rgba(255, 99, 71, 0.8);
+  /* Default color (Tomato, semi-transparent) */
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  /* Balloon shape */
+  opacity: 0.9;
+  z-index: 100;
+  /* Appear above most elements */
+  animation: rise 6s linear infinite;
+  /* Animation */
+  pointer-events: none;
+  /* Don't block clicks */
+}
+
+/* Balloon string (optional visual) */
+.balloon::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  /* Start below the main shape */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 20px;
+  /* String length */
+  background-color: #555;
+  /* String color */
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+
+  90% {
+    opacity: 0.7;
+    /* Fade slightly */
+  }
+
+  100% {
+    transform: translateY(-100vh);
+    /* Rise 100% of viewport height */
+    opacity: 0;
+  }
+}
+
+/* **** END BALLOON STYLES **** */
+
+/* **** ADD STYLES FOR HEARTS **** */
+.heart {
+  position: fixed;
+  /* Use fixed to float over everything */
+  bottom: -30px;
+  /* Start below screen */
+  left: 50%;
+  /* Start horizontally centered */
+  transform: translateX(-50%);
+  /* Adjust for centering */
+  font-size: 24px;
+  /* Size of the heart character */
+  color: var(--color-heart-effect);
+  /* Hot pink, slightly transparent */
+  pointer-events: none;
+  /* Don't interfere with clicks */
+  animation: floatUpFade 4s linear forwards;
+  /* Animation */
+  z-index: 110;
+  /* Ensure hearts are above balloons if needed */
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  /* Optional shadow */
+}
+
+@keyframes floatUpFade {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.9;
+  }
+
+  90% {
+    opacity: 0.7;
+  }
+
+  100% {
+    /* Float up further than balloons maybe */
+    transform: translateX(-50%) translateY(-80vh);
+    opacity: 0;
+  }
+}
+
+/* **** ADD STYLES FOR BIRTHDAY POP-OUT **** */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+    font-weight: inherit; /* Start with normal weight */
+  }
+
+  50% {
+    transform: scale(1.4); /* Make it pop larger */
+    font-weight: 900; /* Make it bolder */
+    color: var(--color-pop-out-word); /* Darker pink for emphasis */
+  }
+
+  100% {
+    transform: scale(1);
+    font-weight: inherit; /* Return to normal weight */
+    color: inherit; /* Return to normal color */
+  }
+}
+
+/* Class to trigger the pop animation */
+.birthday-word.pop-out {
+  display: inline-block;
+  /* Required for transform to work */
+  animation: pop var(--duration-pop) ease-in-out forwards; /* Adjust duration/timing as needed */
+}
+
+/* Ensure the span itself inherits parent styles initially */
+.birthday-word {
+  font-weight: inherit; /* Use the weight from the parent message */
+  color: inherit;
+  transition: color 0.3s ease; /* Smooth color transitions if needed */
+}
+
+/* **** ADD: Styles for Moon Icon **** */
+/* **** ADD: Night Background Gradient Class **** */
+.bg-gradient-night {
+  background: linear-gradient(
+    to bottom,
+    #0f172a,
+    #1e293b,
+    #334155
+  ); /* Dark blues/greys */
+  /* Example: Dark blue/purple theme */
+  /* background: linear-gradient(to bottom, #2d3748, #4a044e, #1a202c); */
+}
+
+/* --- Optional: Adjust Moon Glow for Dark BG --- */
+/* If using night background, a WHITE glow works best */
+.moon-icon {
+  color: var(--color-moon); /* Lighter blue/almost white moon for dark BG */
+  /* filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)); */ /* Try a simple white glow */
+  /* Add layered white glow for more definition on dark bg */
+  filter:
+       drop-shadow(0 0 3px var(--color-moon-glow-inner))
+       drop-shadow(0 0 15px var(--color-moon-glow-outer));
+    transition: filter var(--duration-highlight) ease-in-out, color var(--duration-highlight) ease;
+}
+
+/* Make sure the name meaning message visibility still works */
+#nameMeaningMessage {
+  font-style: italic;
+  /* color: var(--text-msg-box); */
+  color: var(--text-dark);
+  transition-property: color, opacity; /* Tell browser WHAT properties to transition */
+  transition-duration: var(--duration-bg-change), var(--duration-fade); /* Duration for color, duration for opacity */
+  transition-timing-function: ease-in-out, ease; /* Timing for color, timing for opacity */
+}
+
+.bg-gradient-night #nameMeaningMessage {
+  color: var(--text-light); /* Set text to light color for dark background */
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+  #birthdayImage {
+    max-width: 90%;
+    /* Allow slightly more width */
+    /* **** REDUCED MOBILE MAX HEIGHT **** */
+    max-height: 45vh;
+    /* Reduced from 60vh */
+  }
+
+  #birthdayHat {
+    /* **** RE-ADJUST these based on new image height **** */
+    width: 135px;
+    /* Adjusted mobile size */
+    top: 19%;
+    /* Example: Start adjusting from lower values */
+    left: 13%;
+    /* Example: Start adjusting from lower values */
+  }
+
+  .message-large {
+    font-size: 1.5rem;
+    /* Slightly smaller large text */
+    line-height: 2rem;
+  }
+
+  .message-small {
+    font-size: 1.1rem;
+    /* Slightly smaller small text */
+    line-height: 1.6rem;
+  }
+
+  .message-box {
+    font-size: 0.85rem;
+    /* Smaller font on mobile */
+    padding: 0.75rem;
+    max-width: 95%;
+  }
+
+  #replayButton {
+    font-size: 0.8rem;
+    /* Smaller button text */
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .md\:text-7xl {
+    font-size: 4.5rem;
+    line-height: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .lg\:text-8xl {
+    font-size: 6rem;
+    line-height: 1;
+  }
+}

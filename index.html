@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Mayur Bro</title>
+  <meta name="description" content="Birthday Greetings" />
+  <meta name="author" content="Birthday Greetings" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Birthday Greetings" />
+  <meta property="og:description" content="Birthday Greetings" />
+  <meta property="og:type" content="website" />
+
+  <!-- **** ADD THIS LINE FOR FAVICON **** -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <!-- ************************************* -->
+
+  <!-- Google Fonts -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" />
+
+  <!-- **** ADD THIS FOR CONFETTI **** -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="root">
+    <div
+      class="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-300 via-purple-200 to-indigo-200">
+      <div class="w-full max-w-md px-4 py-8 text-center">
+        <div id="birthdayMessage" class="flex flex-col items-center justify-center h-full space-y-4">
+          <!-- Music Dialog -->
+          <div id="musicDialog" class="music-dialog">
+            <div class="music-dialog-content">
+              <div class="dialog-header">
+                <h2 class="dialog-title">Background Music</h2>
+                <p class="dialog-description">
+                  Would you like to play background music?
+                </p>
+              </div>
+              <div class="dialog-footer">
+                <button id="noMusicBtn" class="btn btn-outline">
+                  No, thanks
+                </button>
+                <button id="yesMusicBtn" class="btn">Yes, play music</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Music Player (hidden initially) -->
+          <div id="musicPlayer" class="hidden">
+            <audio id="bgMusic" src="The Nights (PenduJatt.Com.Se)-[AudioTrimmer.com].mp3" loop></audio>
+            <button id="toggleMusicBtn" class="music-toggle-btn" aria-label="Toggle music">
+              <svg id="volumeIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="h-5 w-5">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+              </svg>
+              <svg id="muteIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="h-5 w-5">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Countdown Section -->
+          <div id="countdownSection" class="hidden">
+            <div class="text-2xl md:text-3xl text-gray-800 mb-4 animate-float">
+              Something Coming for You in
+            </div>
+            <div id="countdown"
+              class="font-bold text-6xl md:text-7xl lg:text-8xl text-white drop-shadow-lg animate-float">
+              5
+            </div>
+          </div>
+
+          <!-- Messages Section -->
+          <div id="messagesSection" class="flex flex-col items-center space-y-2">
+            <!-- Wrapper for First Message -->
+            <div class="animate-float">
+              <div id="firstMessage" class="message message-large hidden">
+                Hi Mayur
+              </div>
+            </div>
+
+            <!-- Wrapper for Second Message -->
+            <div class="animate-float">
+              <div id="secondMessage" class="message message-small hidden">
+                As your name suggests,
+                  <br> Like a peacock in the wild — bold, proud, and totally you:)
+              </div>
+            </div>
+
+             <!-- **** START: NEW NAME MEANING MESSAGE **** -->
+             <div class="animate-float">
+              <div id="nameMeaningMessage" class="message message-small hidden">
+                 <!-- Add an inline SVG moon icon (simple example) -->
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="moon-icon inline-block mr-1 relative align-middle" style="top: -1px;"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                 <!-- Or use an image: <img src="img/moon.png" alt="Moon" class="moon-icon inline-block mr-1 h-5 w-5 align-middle"> -->
+                And like the stars, you always show up when it matters. ✨
+              </div>
+            </div>
+            <!-- **** END: NEW NAME MEANING MESSAGE **** -->
+
+            <!-- Wrapper for Birthday Text -->
+            <div class="animate-float">
+              <div id="birthdayText" class="message message-large hidden">
+                It's Your <span class="birthday-word">Birthday</span> Today 💗
+              </div>
+            </div>
+
+            <!-- Greeting Section -->
+            <div id="greetingSection" class="hidden">
+              <div
+                class="max-w-2xl mx-4 p-6 bg-white/90 border border-gray-200 rounded-xl shadow-lg transform transition-all duration-500 ease-in-out">
+                <div class="prose prose-lg text-gray-800" id="greetingText"></div>
+                <div class="mt-6 flex justify-center">
+                  <button id="sendBtn" class="btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="mr-2 h-4 w-4">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                    Send(Click kar yaha)
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Final Message ("thought first") -->
+            <div class="animate-float">
+              <div id="finalMessage" class="message message-large hidden">
+                This is what I thought first, but
+              </div>
+            </div>
+
+            <!-- Special Message ("realised") -->
+            <div class="animate-float">
+              <div id="specialMessage" class="message message-large hidden">
+                I realised, I wanted to do something special
+              </div>
+            </div>
+
+            <!-- Because Message -->
+            <div class="animate-float">
+              <div id="becauseMessage" class="message message-large hidden">
+                Because
+              </div>
+            </div>
+
+            <!-- You Are Special Message -->
+            <div class="animate-float">
+              <div id="youAreSpecialMessage" class="message message-large hidden">
+                you are <span class="highlight-special">SPECIAL BRO</span>
+              </div>
+            </div>
+
+            <!-- **** START: Updated "So..." Sequence **** -->
+            <div id="soSection" class="flex flex-col items-center space-y-2">
+              <!-- Wrapper for "So..." -->
+              <div class="animate-float">
+                <div id="soLine1Message" class="message message-large hidden">
+                  So...
+                </div>
+              </div>
+              <!-- Wrapper for "I made this site." -->
+              <div class="animate-float">
+                <div id="soLine2Message" class="message message-small hidden">
+                  I made this website.
+                </div>
+              </div>
+            </div>
+            <!-- **** END: Updated "So..." Sequence **** -->
+
+            <!-- **** START: Final Scene **** -->
+            <div id="finalSceneContainer" class="hidden flex flex-col items-center mt-6 space-y-2" style="width: 100%;">
+
+              <div id="finalImageContainer" class="relative w-full flex justify-center">
+           <!-- <img id="birthdayImage" src="test.jpg" alt="Birthday Scene" class="rounded-lg shadow-lg" /> -->
+                <img id="birthdayImage" src="resize.jpg" alt="Birthday Scene" class="rounded-lg shadow-lg" />
+                <img id="birthdayHat" src="hat.png" alt="Birthday Hat" class="absolute" />
+              </div>
+
+              <div id="detailedMessageContainer" class="hidden opacity-0 message-box">
+                <p>Happy Birthday, bro! You're one of the coolest people I know. Grateful for all the laughs, late-night talks, and stupid things we’ve done together. Here’s to more fun, success, and food! Have an awesome one!</p>
+              </div>
+
+              <div id="finalWishesMessage" class="message message-large text-center hidden opacity-0">
+                Wishes from Montu(Ayush) 😉
+              </div>
+            </div>
+            <!-- **** END: Final Scene **** -->
+
+
+            <!-- **** START: Come Back Message **** -->
+            <div id="comeBackMessageContainer" class="hidden">
+              <div class="animate-float">
+                <div id="comeBackMessage" class="message message-large opacity-0">
+                  Now, come back and tell me if you liked it.
+                  <br />
+                  <button id="replayButton" class="btn mt-4">
+                    Or Click, here if you want to watch again. 😊
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- **** END: Come Back Message **** -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
